@@ -6,7 +6,7 @@ from flask import Blueprint, jsonify
 from models.product import Product
 
 
-home = Blueprint('home', __name__, url_prefix='/api/v1/views/')
+home = Blueprint('home', __name__, url_prefix='/api/v1/views')
 
 
 @home.route('/home')

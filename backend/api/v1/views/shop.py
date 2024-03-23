@@ -21,7 +21,7 @@ def shop_route(category_name):
         )
         if not category:
             flag = True
-            abort(400)
+            abort(404)
 
         # retrieve all the products with their categories
         products = (
@@ -48,7 +48,7 @@ def shop_route(category_name):
             return jsonify({"error": "Database error"}), 500
         elif flag:
             # handle the case where the category name doesn't exist
-            return jsonify({"error": "Category doesn't exist"}), 400
+            return jsonify({"error": "Category Not Found"}), 404
         else:
             # Handle other unexpected exceptions
             return jsonify({"error": "Internal server error"}), 500

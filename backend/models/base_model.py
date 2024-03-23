@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 '''contains BaseModal class'''
 import models
+from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, DateTime, func
+from sqlalchemy import Column, Integer, DateTime
 from sqlalchemy.exc import InvalidRequestError
 
 
@@ -14,10 +15,10 @@ class BaseModel:
 
     __abstract__ = True
 
-    id = Column(Integer, primary_key=True)
-    created_at = Column(DateTime, nullable=False, default=func.now())
-    updated_at = Column(DateTime, nullable=False,
-                        default=func.now(), onupdate=func.now())
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    created_at = Column(DateTime, nullable=False, default=datetime.now())
+    updated_at = Column(DateTime, nullable=False, default=datetime.now(),
+                        onupdate=datetime.now())
 
     def add_new(self) -> None:
         '''Adds new record to a table'''
