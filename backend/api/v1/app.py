@@ -9,6 +9,8 @@ from api.v1.views.shop import shop
 from api.v1.views.auth import auth
 from api.v1.views.product import product
 from flask_jwt_extended import JWTManager
+from flask_wtf.csrf import CSRFProtect
+
 
 # create the flask app
 app = Flask(__name__)
@@ -19,6 +21,12 @@ load_dotenv()
 # set the app configuration
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY')
+app.config['JWT_TOKEN_LOCATION'] = ['cookies']
+# this will be changed to True in production
+app.config['JWT_COOKIE_SECURE'] = False
+app.config['JWT_COOKIE_CSRF_PROTECT'] = False
+app.config['JWT_CSRF_IN_COOKIES'] = False
+
 
 # jwt manager for token creation
 jwt = JWTManager(app)
@@ -30,7 +38,7 @@ app.register_blueprint(product)
 app.register_blueprint(auth)
 
 
-# after request, close the session
+# after each request, close the session
 @app.teardown_request
 def close_session(exception=None):
     db.close()

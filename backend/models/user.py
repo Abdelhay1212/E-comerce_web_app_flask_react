@@ -17,7 +17,8 @@ class User(BaseModel, Base):
     email = Column(String(100), unique=True, nullable=False)
     first_name = Column(String(60), nullable=False)
     last_name = Column(String(60), nullable=False)
-    password = Column(String(250), nullable=False)
+    password = Column(String(500), nullable=False)
+    salt = Column(String(40), nullable=False)
     verified = Column(Boolean, nullable=False, default=False)
     admin = Column(Boolean, nullable=False, default=False)
     address_id = Column(Integer, ForeignKey('addresses.id'))
@@ -29,12 +30,12 @@ class User(BaseModel, Base):
     def generate_hash_password(self, password):
         '''Generates a hash password'''
         if password:
-            salt = secrets.token_hex(16)
-            self.password = generate_password_hash(password + salt)
+            self.salt = secrets.token_hex(16)
+            self.password = generate_password_hash(password + self.salt)
 
     def verify_password(self, password):
         '''Verifies the password'''
-        return check_password_hash(self.password, password)
+        return check_password_hash(self.password, password + self.salt)
 
     def generate_access_token(self):
         '''Generates an access token'''

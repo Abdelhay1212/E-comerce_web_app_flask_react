@@ -2,6 +2,11 @@
 from models import db
 from models.user import User
 from flask import Blueprint, request, jsonify
+from flask_jwt_extended import (
+    jwt_required, set_access_cookies,
+    set_refresh_cookies, get_jwt_identity,
+    create_access_token, unset_jwt_cookies, get_csrf_token
+)
 
 auth = Blueprint('auth', __name__, url_prefix='/api/v1/views/auth')
 
@@ -34,40 +39,97 @@ def register():
         user.generate_hash_password(password)
         user.add_new()
 
-        # generate the access and refresh tokens
+        # generate the access tokens
         access_token = user.generate_access_token()
-        refresh_token = user.generate_refresh_token()
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-    return jsonify(
-        {
-            'message': 'User created successfully',
-            'data': {
-                'username': user.username,
-                'email': user.email,
-                'first_name': user.first_name,
-                'last_name': user.last_name,
-                'verified': user.verified,
-                'tokens': {
-                    'access_token': access_token,
-                    'refresh_token': refresh_token
+        # create the response
+        response = jsonify(
+            {
+                'message': 'User created successfully',
+                'data': {
+                    'username': user.username,
+                    'email': user.email,
+                    'first_name': user.first_name,
+                    'last_name': user.last_name,
+                    'verified': user.verified,
                 }
             }
-        }
-    ), 201
+        )
+        # set the access token cookie
+        set_access_cookies(response, access_token)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    return response, 201
 
 
 @auth.route('/login', methods=['POST'])
 def login():
     ''' Login a user '''
-    return jsonify({'message': 'Login'})
+    # get the user data
+    login_identifier, password, remember_me = request.json.get(
+        'login_identifier'), request.json.get('password'), request.json.get('remember_me')
+    # check if all fields are provided
+    if not login_identifier or not password:
+        return jsonify({'error': 'All the fields are required'}), 400
+
+    try:
+        # check if it is a username or email
+        if User.validate_email(login_identifier):
+            user = db.session.query(User).filter_by(
+                email=login_identifier).first()
+        else:
+            user = db.session.query(User).filter_by(
+                username=login_identifier).first()
+        # check if the user exists
+        if not user:
+            return jsonify({'error': 'Authentication Failed'}), 401
+        # check if the password is correct
+        if not user.verify_password(password):
+            return jsonify({'error': 'Authentication Failed'}), 401
+        # generate the access and refresh tokens
+        access_token = user.generate_access_token()
+        if remember_me:
+            refresh_token = user.generate_refresh_token()
+        # create the response
+        response = jsonify(
+            {
+                'message': 'Login successful',
+                'data': {
+                    'username': user.username,
+                    'email': user.email,
+                    'first_name': user.first_name,
+                    'last_name': user.last_name,
+                    'verified': user.verified,
+                }
+            }
+        )
+        set_access_cookies(response, access_token)
+        if remember_me:
+            set_refresh_cookies(response, refresh_token)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    return response, 200
 
 
-@auth.route('/logout', methods=['DELETE'])
+@auth.route('/token_refresh', methods=['POST'])
+@jwt_required(refresh=True)
+def refresh():
+    # Create the new access token
+    current_user = get_jwt_identity()
+    access_token = create_access_token(identity=current_user)
+
+    # Set the access JWT and CSRF double submit protection cookies
+    resp = jsonify({'refresh': True})
+    set_access_cookies(resp, access_token)
+    return resp, 200
+
+
+@auth.route('/logout', methods=['POST'])
+@jwt_required()
 def logout():
     ''' Logout a user '''
-    return jsonify({'message': 'Logout'})
+    resp = jsonify({'logout': True})
+    unset_jwt_cookies(resp)
+    return resp, 200
 
 
 # @auth.route('/reset_password', methods=['POST'])
