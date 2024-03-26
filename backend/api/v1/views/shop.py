@@ -31,7 +31,7 @@ def shop_route(category_name):
             .all()
         )
         response = []
-        # checkng for the products with category name passed in URL
+        # checking for the products with category name passed in URL
         for product in products:
             product_dict = to_dict(product)
             product_dict['categories'] = [

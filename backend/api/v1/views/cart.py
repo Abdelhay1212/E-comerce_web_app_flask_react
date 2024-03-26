@@ -38,6 +38,7 @@ def get_cart():
                 'user_id': item.user_id,
                 'product_id': item.product_id,
                 'quantity': item.quantity,
+                'subtotal': item.subtotal,
                 'product': {
                     'id': item.product.id,
                     'title': item.product.title,
@@ -92,7 +93,8 @@ def add_to_cart():
         return jsonify({'error': 'Product not found'}), 404
 
     # add new item to the cart
-    new_cart = Cart(user_id=user_id, product_id=product_id, quantity=quantity)
+    new_cart = Cart(user_id=user_id, product_id=product_id,
+                    quantity=quantity, subtotal=product.new_price * quantity)
     new_cart.add_new()
     return jsonify({'message': 'Item added to cart'}), 201
 
@@ -132,6 +134,7 @@ def update_cart():
         # update the cart item
         quantity = int(quantity)
         cart.quantity += quantity
+        cart.subtotal = cart.product.new_price * cart.quantity
         # if the quantity is less than 1, delete the cart item
         if cart.quantity < 1:
             cart.delete()
