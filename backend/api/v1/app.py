@@ -7,9 +7,9 @@ from dotenv import load_dotenv
 from api.v1.views.home import home
 from api.v1.views.shop import shop
 from api.v1.views.auth import auth
+from api.v1.views.cart import cart
 from api.v1.views.product import product
 from flask_jwt_extended import JWTManager
-from flask_wtf.csrf import CSRFProtect
 
 
 # create the flask app
@@ -35,6 +35,7 @@ jwt = JWTManager(app)
 app.register_blueprint(home)
 app.register_blueprint(shop)
 app.register_blueprint(product)
+app.register_blueprint(cart)
 app.register_blueprint(auth)
 
 
