@@ -1,0 +1,35 @@
+.icon-link {
+  position: relative;
+}
+
+.cart-price {
+  color: #607d8b;
+}
+
+.item-count,
+.item-count-menu {
+  position: absolute;
+  background-color: #607d8b;
+  color: black;
+  border-radius: 50%;
+  padding: 0 6px;
+  font-size: 0.75rem;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.item-count {
+  top: -15px;
+  right: -15px;
+}
+
+.item-count-menu {
+  top: -15px;
+  left: 65px;
+}
+
+.active {
+  color: #607d8b;
+}
