@@ -30,6 +30,6 @@
   left: 65px;
 }
 
-.active {
+.nav-link.active {
   color: #607d8b;
 }

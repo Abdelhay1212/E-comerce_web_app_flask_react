@@ -27,16 +27,16 @@ function NavBar() {
           </NavLink>
           {/* Links aligned to the start */}
           <div className="hidden lg:flex lg:gap-x-5 items-center ml-10">
-            <NavLink to='/shop/all' className="text-sm font-semibold leading-6 text-gray-900">All Products</NavLink>
-            <NavLink to='/shop/sofa' className="text-sm font-semibold leading-6 text-gray-900">Sofa</NavLink>
-            <NavLink to='/shop/chair' className="text-sm font-semibold leading-6 text-gray-900">Chair</NavLink>
-            <NavLink to='/shop/table' className="text-sm font-semibold leading-6 text-gray-900">Table</NavLink>
+            <NavLink to='/shop/all' className="nav-link text-sm font-semibold leading-6 text-gray-900 hover:text-[#607d8b]" activeClassName="active">All Products</NavLink>
+            <NavLink to='/shop/sofa' className="nav-link text-sm font-semibold leading-6 text-gray-900 hover:text-[#607d8b]" activeClassName="active">Sofa</NavLink>
+            <NavLink to='/shop/chair' className="nav-link text-sm font-semibold leading-6 text-gray-900 hover:text-[#607d8b]" activeClassName="active">Chair</NavLink>
+            <NavLink to='/shop/table' className="nav-link text-sm font-semibold leading-6 text-gray-900 hover:text-[#607d8b]" activeClassName="active">Table</NavLink>
           </div>
         </div>
         {/* Links aligned to the end */}
         <div className="hidden lg:flex lg:gap-x-5 items-center">
-          <NavLink to='/about' className="text-sm font-semibold leading-6 text-gray-900">About Us</NavLink>
-          <NavLink to='/account' className="text-sm font-semibold leading-6 text-gray-900">My Account</NavLink>
+          <NavLink to='/about' className="nav-link text-sm font-semibold leading-6 text-gray-900 hover:text-[#607d8b]" activeClassName="active">About Us</NavLink>
+          <NavLink to='/account' className="nav-link text-sm font-semibold leading-6 text-gray-900 hover:text-[#607d8b]" activeClassName="active">My Account</NavLink>
           <NavLink to='/side_cart' className="icon-link flex items-center text-sm font-semibold leading-6 text-gray-900">
             <span className="cart-price">$0.00</span>
             <img src={cart_icon} alt="Cart" className="ml-2 w-6" />
@@ -61,12 +61,12 @@ function NavBar() {
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-200">
                 <div className="space-y-2 py-6">
-                  <NavLink to='/shop/all' className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-100" onClick={toggleMenu}>All Products</NavLink>
-                  <NavLink to='/shop/sofa' className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-100" onClick={toggleMenu}>Sofa</NavLink>
-                  <NavLink to='/shop/chair' className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-100" onClick={toggleMenu}>Chair</NavLink>
-                  <NavLink to='/shop/table' className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-100" onClick={toggleMenu}>Table</NavLink>
-                  <NavLink to='/shop/about' className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-100" onClick={toggleMenu}>About Us</NavLink>
-                  <NavLink to='/shop/account' className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-100" onClick={toggleMenu}>My Account</NavLink>
+                  <NavLink to='/shop/all' className="nav-link -mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:text-[#607d8b]" activeClassName="active" onClick={toggleMenu}>All Products</NavLink>
+                  <NavLink to='/shop/sofa' className="nav-link -mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:text-[#607d8b]" activeClassName="active" onClick={toggleMenu}>Sofa</NavLink>
+                  <NavLink to='/shop/chair' className="nav-link -mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:text-[#607d8b]" activeClassName="active" onClick={toggleMenu}>Chair</NavLink>
+                  <NavLink to='/shop/table' className="nav-link -mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:text-[#607d8b]" activeClassName="active" onClick={toggleMenu}>Table</NavLink>
+                  <NavLink to='/shop/about' className="nav-link -mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:text-[#607d8b]" activeClassName="active" onClick={toggleMenu}>About Us</NavLink>
+                  <NavLink to='/shop/account' className="nav-link -mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:text-[#607d8b]" activeClassName="active" onClick={toggleMenu}>My Account</NavLink>
                   <NavLink to='/side_cart' className="icon-link flex items-center text-sm font-semibold leading-6 text-gray-900">
                     <span className="cart-price">$0.00</span>
                     <img src={cart_icon} alt="Cart" className="ml-2 w-6" />
