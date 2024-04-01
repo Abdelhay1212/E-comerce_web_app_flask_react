@@ -9,7 +9,7 @@ from models.product import Product
 home = Blueprint('home', __name__, url_prefix='/api/v1/views')
 
 
-@home.route('/home')
+@home.route('/latest-products', methods=['GET'])
 def home_route():
     try:
         products = (
