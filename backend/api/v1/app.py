@@ -10,7 +10,7 @@ from api.v1.views.auth import auth
 from api.v1.views.cart import cart
 from api.v1.views.product import product
 from flask_jwt_extended import JWTManager
-
+from flask_cors import CORS
 
 # create the flask app
 app = Flask(__name__)
@@ -30,6 +30,9 @@ app.config['JWT_CSRF_IN_COOKIES'] = False
 
 # jwt manager for token creation
 jwt = JWTManager(app)
+
+# enable CORS
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # register the blueprints with the app
 app.register_blueprint(home)
