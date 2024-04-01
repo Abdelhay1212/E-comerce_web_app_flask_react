@@ -19,7 +19,7 @@ function NavBar() {
 
   return (
     <header className="bg-white">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         {/* Logo on the left */}
         <div className="flex items-center">
           <NavLink to='/' className="text-xl font-bold">
