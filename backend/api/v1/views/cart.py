@@ -73,30 +73,33 @@ def add_to_cart():
     # get the user_id from the jwt token
     user_id = get_jwt_identity()
 
-    # check if the product already exists in the cart
-    cart = db.session.query(Cart).filter_by(
-        user_id=user_id, product_id=product_id).first()
-    if cart:
-        return redirect('/api/v1/views/cart/update?cart_id={}&quantity={}'.format(cart.id, quantity))
+    try:
+        # check if the product already exists in the cart
+        cart = db.session.query(Cart).filter_by(
+            user_id=user_id, product_id=product_id).first()
+        if cart:
+            return redirect('/api/v1/views/cart/update?cart_id={}&quantity={}'.format(cart.id, quantity))
 
-    if quantity < 1:
-        return jsonify({'error': 'Quantity must be greater than 0'}), 400
+        if quantity < 1:
+            return jsonify({'error': 'Quantity must be greater than 0'}), 400
 
-    # check if the user_id exists
-    user = db.session.query(User).filter_by(id=user_id).first()
-    if not user:
-        return jsonify({'error': 'User not found'}), 404
+        # check if the user_id exists
+        user = db.session.query(User).filter_by(id=user_id).first()
+        if not user:
+            return jsonify({'error': 'User not found'}), 404
 
-    # # check if the product_id exists
-    product = db.session.query(Product).filter_by(id=product_id).first()
-    if not product:
-        return jsonify({'error': 'Product not found'}), 404
+        # # check if the product_id exists
+        product = db.session.query(Product).filter_by(id=product_id).first()
+        if not product:
+            return jsonify({'error': 'Product not found'}), 404
 
-    # add new item to the cart
-    new_cart = Cart(user_id=user_id, product_id=product_id,
-                    quantity=quantity, subtotal=product.new_price * quantity)
-    new_cart.add_new()
-    return jsonify({'message': 'Item added to cart'}), 201
+        # add new item to the cart
+        new_cart = Cart(user_id=user_id, product_id=product_id,
+                        quantity=quantity, subtotal=product.new_price * quantity)
+        new_cart.add_new()
+        return jsonify({'message': 'Item added to cart'}), 201
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 @cart.route('/update', methods=['GET', 'PUT'])
