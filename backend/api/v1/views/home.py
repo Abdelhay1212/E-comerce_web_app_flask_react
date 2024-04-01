@@ -14,7 +14,7 @@ def home_route():
     try:
         products = (
             db.session.query(Product)
-            .join(Product.categories)
+            .outerjoin(Product.categories)
             .group_by(Product.id)
             .order_by(Product.created_at)
             .limit(4)
