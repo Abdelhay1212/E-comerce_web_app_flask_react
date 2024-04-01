@@ -1,7 +1,6 @@
 import chair_img1 from "../assets/images/chair-1.jpg"
 import chair_img2 from "../assets/images/chair-2.jpg"
 import { NavLink } from "react-router-dom"
-import "../assets/styles/Collection.css"
 
 const Collection = () => {
   return (
