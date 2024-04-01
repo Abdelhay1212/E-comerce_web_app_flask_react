@@ -2,7 +2,7 @@
 ''' Flask Application '''
 import os
 from models import db
-from flask import Flask
+from flask import Flask, send_from_directory
 from dotenv import load_dotenv
 from api.v1.views.home import home
 from api.v1.views.shop import shop
@@ -46,6 +46,11 @@ app.register_blueprint(auth)
 @app.teardown_request
 def close_session(exception=None):
     db.close()
+
+
+@app.route('/images/<filename>')
+def serve_image(filename):
+    return send_from_directory('../../static/images', filename)
 
 
 if __name__ == '__main__':
