@@ -8,7 +8,7 @@ import warranty_icon from '../assets/images/warranty-icon.png'
 const Guarantees = () => {
   return (
     <section className="max-w-6xl bg-white p-8 mx-auto">
-      <div className="px-4 pb-8 mx-auto lg:pb-16">
+      <div className="px-4 pb-8 mx-auto lg:pb-10">
         <div className="grid grid-cols-1 gap-8 text-gray-500 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 justify-center items-center dark:text-gray-400">
           <div className="flex flex-col items-center justify-center">
             <img src={cert_icon} alt="" />
