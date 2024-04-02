@@ -1,11 +1,24 @@
-
+import { useState } from 'react'
+import Login from '../components/Login';
+import Register from '../components/Register';
 
 const Account = () => {
+
+  const [showLogin, setShowLogin] = useState(true)
+
+  function toggleLogin() {
+    setShowLogin(!showLogin)
+  }
+
   return (
     <>
-      <h1>Account Page</h1>
+      {showLogin ? (
+        <Login toggleLogin={toggleLogin} />
+      ) : (
+        <Register toggleLogin={toggleLogin} />
+      )}
     </>
   );
 }
 
-export default Account;
+export default Account
