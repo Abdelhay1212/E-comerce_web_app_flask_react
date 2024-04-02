@@ -45,6 +45,7 @@ const Login = ({ toggleLogin }) => {
       const response = await fetch('http://localhost:5000/api/v1/views/auth/login', options)
       const data = await response.json()
       if (response.ok) {
+        sessionStorage.setItem('access_token', data.access_token)
         alert(data.message)
         navigate('/')
       } else {

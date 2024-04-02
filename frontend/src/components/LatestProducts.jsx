@@ -1,10 +1,11 @@
 import cart_icon from "../assets/images/cart-shopping-solid.svg"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 
 const LatestProducts = () => {
 
   const [products, setProducts] = useState([])
+  const navigate = useNavigate()
 
   const fetchProducts = async () => {
     try {
@@ -21,26 +22,37 @@ const LatestProducts = () => {
   }, [])
 
   async function addToCart(id) {
-    const data = {
+    const accessToken = sessionStorage.getItem('access_token')
+
+    if (!accessToken) {
+      navigate('/account')
+      return
+    }
+
+    const product_data = {
       product_id: id,
       quantity: 1
     }
 
-    try {
-      const response = await fetch("http://localhost:5000/api/v1/views/cart/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      })
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${accessToken}`
+      },
+      body: JSON.stringify(product_data)
+    }
 
-      const json_data = await response.json()
+    try {
+      const response = await fetch("http://localhost:5000/api/v1/views/cart/add", options)
+
+      const data = await response.json()
       if (response.ok) {
-        alert(json_data.message)
+        alert(data.message)
+        return
       } else {
-        if (json_data.error) {
-          alert(json_data.error)
+        if (data.error) {
+          alert(data.error)
           return
         }
         alert("You need to login first.")
