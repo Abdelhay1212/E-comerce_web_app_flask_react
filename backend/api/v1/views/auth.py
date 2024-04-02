@@ -45,6 +45,7 @@ def register():
         response = jsonify(
             {
                 'message': 'User created successfully',
+                'access_token': access_token,
                 'data': {
                     'username': user.username,
                     'email': user.email,
@@ -54,8 +55,6 @@ def register():
                 }
             }
         )
-        # set the access token cookie
-        set_access_cookies(response, access_token)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     return response, 201
@@ -93,6 +92,8 @@ def login():
         response = jsonify(
             {
                 'message': 'Login successful',
+                'access_token': access_token,
+                'refresh_token': refresh_token if remember_me else None,
                 'data': {
                     'username': user.username,
                     'email': user.email,
@@ -102,9 +103,6 @@ def login():
                 }
             }
         )
-        set_access_cookies(response, access_token)
-        if remember_me:
-            set_refresh_cookies(response, refresh_token)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     return response, 200
@@ -118,17 +116,10 @@ def refresh():
     access_token = create_access_token(identity=current_user)
 
     # Set the access JWT and CSRF double submit protection cookies
-    resp = jsonify({'refresh': True})
-    set_access_cookies(resp, access_token)
-    return resp, 200
-
-
-@auth.route('/logout', methods=['POST'])
-@jwt_required()
-def logout():
-    ''' Logout a user '''
-    resp = jsonify({'logout': True})
-    unset_jwt_cookies(resp)
+    resp = jsonify({
+        'refresh': True,
+        'access_token': access_token
+    })
     return resp, 200
 
 
