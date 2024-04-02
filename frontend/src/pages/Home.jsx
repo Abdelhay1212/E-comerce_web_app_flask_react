@@ -3,6 +3,8 @@ import Comfort from "../components/Comfort"
 import NavBar from "../components/NavBar"
 import Guarantees from "../components/Guarantees"
 import LatestProducts from "../components/LatestProducts"
+import Footer from "../components/Footer"
+import Testimonials from "../components/Testimonials"
 
 const Home = () => {
   return (
@@ -12,6 +14,8 @@ const Home = () => {
       <Collection />
       <Guarantees />
       <LatestProducts />
+      <Testimonials />
+      <Footer />
     </>
   )
 }
