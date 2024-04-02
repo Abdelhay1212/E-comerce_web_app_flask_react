@@ -77,7 +77,7 @@ const Login = ({ toggleLogin }) => {
                 Email address or Username
               </label>
               <div className="mt-1">
-                <input id="loginIdentifier" name="loginIdentifier" type="text" required
+                <input id="loginIdentifier" name="loginIdentifier" type="text" autoComplete="current-loginIdentifier" required
                   className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-[#607d8b] focus:border-[#607d8b] focus:z-10 sm:text-sm"
                   placeholder="Email, Username" onChange={handleIdentifierChange} />
               </div>
