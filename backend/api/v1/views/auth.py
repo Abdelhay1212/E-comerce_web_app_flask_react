@@ -3,9 +3,8 @@ from models import db
 from models.user import User
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import (
-    jwt_required, set_access_cookies,
-    set_refresh_cookies, get_jwt_identity,
-    create_access_token, unset_jwt_cookies, get_csrf_token
+    jwt_required, get_jwt_identity,
+    create_access_token
 )
 
 auth = Blueprint('auth', __name__, url_prefix='/api/v1/views/auth')
