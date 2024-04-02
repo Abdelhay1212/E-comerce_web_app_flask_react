@@ -21,7 +21,7 @@ load_dotenv()
 # set the app configuration
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY')
-app.config['JWT_TOKEN_LOCATION'] = ['cookies']
+app.config['JWT_TOKEN_LOCATION'] = ['headers']
 # this will be changed to True in production
 app.config['JWT_COOKIE_SECURE'] = False
 app.config['JWT_COOKIE_CSRF_PROTECT'] = False
