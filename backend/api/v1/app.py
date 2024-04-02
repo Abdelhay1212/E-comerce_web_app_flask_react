@@ -32,7 +32,7 @@ app.config['JWT_CSRF_IN_COOKIES'] = False
 jwt = JWTManager(app)
 
 # enable CORS
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, supports_credentials=True, origins=['http://localhost:5173'])
 
 # register the blueprints with the app
 app.register_blueprint(home)
