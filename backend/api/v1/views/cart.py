@@ -29,7 +29,7 @@ def get_cart():
         )
 
         if not cart_items:
-            return jsonify({'cart': []}), 200
+            return jsonify([]), 200
 
         items = []
         for item in cart_items:
@@ -50,7 +50,7 @@ def get_cart():
             })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-    return jsonify({'cart': items}), 200
+    return jsonify(items), 200
 
 
 @cart.route('/add', methods=['POST'])
@@ -181,3 +181,27 @@ def delete_cart():
         return jsonify({'message': 'Cart item deleted'}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+
+@cart.route('/count', methods=['GET'])
+@jwt_required()
+def count_cart():
+    '''Counts the number of items in the cart'''
+    # get the user_id from the jwt token
+    user_id = get_jwt_identity()
+
+    try:
+        # get the cart items with user and product information
+        cart_items = db.session.query(Cart).filter_by(user_id=user_id).all()
+
+        if not cart_items:
+            return jsonify({'count': 0, 'amount': 0}), 200
+
+        count = 0
+        amount = 0
+        for item in cart_items:
+            count += item.quantity
+            amount += item.subtotal
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    return jsonify({'count': count, 'amount': amount}), 200
