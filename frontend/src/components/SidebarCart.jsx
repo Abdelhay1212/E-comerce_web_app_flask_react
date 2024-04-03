@@ -84,19 +84,23 @@ const SidebarCart = ({ isOpen, onClose, cartItems, deleteCartItem }) => {
           </div>
 
           <div className='px-4 py-4 sm:px-6 lg:px-8 flex flex-col gap-2'>
-            <NavLink
-              to='/cart'
-              className="block rounded border border-gray-600 px-5 py-3 text-sm text-gray-600 hover:text-gray-600 text-center transition hover:ring-1 hover:ring-gray-400"
-            >
-              View my cart
-            </NavLink>
+            {cartItems.length > 0 && (
+              <>
+                <NavLink
+                  to='/cart'
+                  className="block rounded border border-gray-600 px-5 py-3 text-sm text-gray-600 hover:text-gray-600 text-center transition hover:ring-1 hover:ring-gray-400"
+                >
+                  View my cart
+                </NavLink>
 
-            <a
-              href="#"
-              className="block rounded bg-gray-700 px-5 py-3 text-sm text-center text-gray-100 transition hover:text-white hover:bg-gray-600"
-            >
-              Checkout
-            </a>
+                <a
+                  href="#"
+                  className="block rounded bg-gray-700 px-5 py-3 text-sm text-center text-gray-100 transition hover:text-white hover:bg-gray-600"
+                >
+                  Checkout
+                </a>
+              </>
+            )}
 
             <NavLink
               to='/shop/all'
