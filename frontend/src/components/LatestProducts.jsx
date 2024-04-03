@@ -1,11 +1,15 @@
 import cart_icon from "../assets/images/cart-shopping-solid.svg"
-import { NavLink, useNavigate } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import { useEffect, useState } from "react"
+import PropTypes from "prop-types"
 
-const LatestProducts = () => {
+const LatestProducts = ({ addToCart }) => {
+
+  LatestProducts.propTypes = {
+    addToCart: PropTypes.func.isRequired,
+  }
 
   const [products, setProducts] = useState([])
-  const navigate = useNavigate()
 
   const fetchProducts = async () => {
     try {
@@ -20,47 +24,6 @@ const LatestProducts = () => {
   useEffect(() => {
     fetchProducts()
   }, [])
-
-  async function addToCart(id) {
-    const accessToken = sessionStorage.getItem('access_token')
-
-    if (!accessToken) {
-      navigate('/account')
-      return
-    }
-
-    const product_data = {
-      product_id: id,
-      quantity: 1
-    }
-
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${accessToken}`
-      },
-      body: JSON.stringify(product_data)
-    }
-
-    try {
-      const response = await fetch("http://localhost:5000/api/v1/views/cart/add", options)
-
-      const data = await response.json()
-      if (response.ok) {
-        alert(data.message)
-        return
-      } else {
-        if (data.error) {
-          alert(data.error)
-          return
-        }
-        alert("You need to login first.")
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
 
   return (
     <div className="flex flex-col items-center justify-center">

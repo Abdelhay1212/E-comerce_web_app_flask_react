@@ -5,7 +5,6 @@ const Shop = () => {
   const { category } = useParams();
   return (
     <>
-      <NavBar />
       <h1>Shop {category}</h1>
     </>
   )
