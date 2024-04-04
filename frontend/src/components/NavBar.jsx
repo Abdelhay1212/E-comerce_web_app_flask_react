@@ -60,14 +60,14 @@ function NavBar({ itemsInfo, getCartItems, cartItems, deleteCartItem }) {
         </nav>
         {/* Conditionally render this part of the menu based on isMenuOpen */}
         {isMenuOpen && (
-          <div className="fixed inset-0 z-10 lg:hidden" role="dialog" aria-labelledby="menu-button" aria-modal="true">
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75"></div>
-            <div className="fixed inset-y-0 right-0 z-20 w-full max-w-sm bg-white overflow-y-auto px-6 py-6 sm:max-w-md">
+          <div className="fixed inset-0 z-10 lg:hidden z-50" role="dialog" aria-labelledby="menu-button" aria-modal="true">
+            <div className="fixed inset-0 bg-opacity-75"></div>
+            <div className="fixed inset-y-0 right-0 z-20 w-full max-w-sm bg-gray-100 overflow-y-auto px-6 py-6 sm:max-w-md">
               <div className="flex items-center justify-between">
                 <NavLink to='/' className="-m-1.5 p-1.5">
                   <img src={s_logo} className="w-10" alt="" />
                 </NavLink>
-                <img src={close_icon} alt="close icon" className="w-5" aria-label="Close menu" onClick={toggleMenu} />
+                <img src={close_icon} alt="close icon" className="w-5 cursor-pointer" aria-label="Close menu" onClick={toggleMenu} />
               </div>
               <div className="mt-6 flow-root">
                 <div className="-my-6 divide-y divide-gray-200">
