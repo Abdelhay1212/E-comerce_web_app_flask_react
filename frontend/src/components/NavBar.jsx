@@ -29,7 +29,7 @@ function NavBar({ itemsInfo, getCartItems, cartItems, deleteCartItem }) {
 
   return (
     <div>
-      <header className="bg-white">
+      <header className="bg-white max-w-6xl mx-auto">
         <nav className="mx-auto flex max-w-6xl items-center justify-between p-6 lg:px-8" aria-label="Global">
           {/* Logo on the left */}
           <div className="flex items-center">
