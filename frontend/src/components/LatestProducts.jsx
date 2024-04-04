@@ -26,7 +26,7 @@ const LatestProducts = ({ addToCart }) => {
   }, [])
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center mb-20">
       <div className="mb-16 flex flex-col items-center justify-center">
         <p className="text-3xl text-[#607d8b] mb-4">Our Latest Products</p>
         <span className="bg-[#607d8b] w-20 h-1 block rounded"></span>
@@ -43,10 +43,10 @@ const LatestProducts = ({ addToCart }) => {
               </div>
             </div>
             <div className="px-4 py-2">
-              <span className="text-sm text-gray-400 mb-2 block">{product.categories[0]}</span>
-              <NavLink to={`/product/${product.id}`} className="font-medium text-sm text-[#607d8b] hover:text-[#607d8b] mb-2">{product.title}</NavLink>
+              <span className="text-sm text-gray-400 mb-2 block">{product.categories[1]}</span>
+              <NavLink to={`/product/${product.id}`} className="font-medium text-md text-[#607d8b] hover:text-[#607d8b] mb-2">{product.title}</NavLink>
               <div>
-                <span className="line-through font-semibold text-md text-gray-400">${product.old_price}</span>
+                <span className="line-through font-semibold text-sm text-gray-400">${product.old_price}</span>
                 <span className="ml-2 font-semibold text-md text-gray-900">${product.new_price}</span>
               </div>
             </div>
