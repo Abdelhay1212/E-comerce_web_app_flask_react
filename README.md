@@ -40,13 +40,13 @@ To get started with this project, follow these steps:
 1. Clone the repository to your local machine:
 
 ```bash
-git clone https://your-repository-url.git
+git clone https://github.com/Abdelhay1212/E-comerce_web_app_flask_react.git
 ```
 
 2. Navigate to the repository
 
 ```bash
-cd your-repository-folder
+cd E-comerce_web_app_flask_react/
 ```
 
 3. Navigate to the backend directory
