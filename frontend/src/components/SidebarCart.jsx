@@ -74,8 +74,8 @@ const SidebarCart = ({ isOpen, onClose, cartItems, deleteCartItem }) => {
                       </div>
                     </NavLink>
 
-                    <div onClick={() => deleteCartItem(item.id)} className='h-5 px-1 cursor-pointer rounded-full border-2 border-gray-800 flex justify-center items-center'>
-                      <img src={closeIcon} className='w-2' alt="" />
+                    <div onClick={() => deleteCartItem(item.id)}>
+                      <span className="text-sm text-center font-small text-gray-400 hover:text-gray-600 mr-4 px-1 cursor-pointer border rounded-full">&#10005;</span>
                     </div>
                   </li>
                 ))}
