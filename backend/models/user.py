@@ -2,6 +2,7 @@
 '''contains User class and Address'''
 import re
 import secrets
+from datetime import timedelta
 from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
@@ -39,11 +40,11 @@ class User(BaseModel, Base):
 
     def generate_access_token(self):
         '''Generates an access token'''
-        return create_access_token(identity=self.id)
+        return create_access_token(identity=self.id, expires_delta=timedelta(hours=1))
 
     def generate_refresh_token(self):
         '''Generates a refresh token'''
-        return create_refresh_token(identity=self.id)
+        return create_refresh_token(identity=self.id, expires_delta=timedelta(days=7))
 
     def validate_email(email):
         pattern = r"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$"
