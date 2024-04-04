@@ -164,7 +164,16 @@ function App() {
                 deleteCartItem={deleteCartItem}
               />}
           />
-          <Route path="/cart" element={<Cart />} />
+          <Route
+            path="/cart"
+            element={
+              <Cart
+                cartItems={cartItems}
+                itemsInfo={itemsInfo}
+                getCartItems={getCartItems}
+                deleteCartItem={deleteCartItem}
+              />}
+          />
           <Route path="/about" element={<About />} />
           <Route path="/account" element={<Account />} />
           <Route path="/shop/:category" element={<Shop />} />
