@@ -176,7 +176,17 @@ function App() {
           />
           <Route path="/about" element={<About />} />
           <Route path="/account" element={<Account />} />
-          <Route path="/shop/:category" element={<Shop />} />
+          <Route
+            path="/shop/:category"
+            element={
+              <Shop
+                cartItems={cartItems}
+                addToCart={addToCart}
+                itemsInfo={itemsInfo}
+                getCartItems={getCartItems}
+                deleteCartItem={deleteCartItem}
+              />}
+          />
           <Route path="/product/:productId" element={<Product />} />
         </Routes>
       </BrowserRouter>
