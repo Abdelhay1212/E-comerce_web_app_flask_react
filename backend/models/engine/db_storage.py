@@ -21,7 +21,7 @@ class DB:
     '''Interacts with the database'''
 
     def __init__(self) -> None:
-        if os.environ.get('MODE') == 'dev':
+        if os.environ.get('MODE') is None:
             db_uri = 'sqlite:///mydb.db'
         else:
             load_dotenv()
