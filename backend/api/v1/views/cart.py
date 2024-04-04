@@ -45,6 +45,7 @@ def get_cart():
                     'new_price': item.product.new_price,
                     'old_price': item.product.old_price,
                     'description': item.product.description,
+                    'stock': item.product.stock,
                     'image': item.product.image,
                 }
             })
