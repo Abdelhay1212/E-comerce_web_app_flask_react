@@ -12,7 +12,7 @@ function App() {
   const [itemsInfo, setItemsInfo] = useState({ count: 0, amount: 0 })
   const [cartItems, setCartItems] = useState([])
 
-  async function addToCart(id) {
+  async function addToCart(id, quantity = 1) {
     const accessToken = sessionStorage.getItem('access_token')
     if (!accessToken) {
       alert("You need to login first.")
@@ -21,7 +21,7 @@ function App() {
 
     const product_data = {
       product_id: id,
-      quantity: 1
+      quantity: quantity
     }
 
     const options = {
@@ -187,7 +187,17 @@ function App() {
                 deleteCartItem={deleteCartItem}
               />}
           />
-          <Route path="/product/:productId" element={<Product />} />
+          <Route
+            path="/product/:productId"
+            element={
+              <Product
+                cartItems={cartItems}
+                addToCart={addToCart}
+                itemsInfo={itemsInfo}
+                getCartItems={getCartItems}
+                deleteCartItem={deleteCartItem}
+              />}
+          />
         </Routes>
       </BrowserRouter>
     </>
