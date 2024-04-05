@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import Login from '../components/Login';
-import Register from '../components/Register';
+import Login from '../components/Login'
+import Register from '../components/Register'
+import { Helmet } from 'react-helmet'
 
 const Account = () => {
 
@@ -13,9 +14,19 @@ const Account = () => {
   return (
     <>
       {showLogin ? (
-        <Login toggleLogin={toggleLogin} />
+        <div>
+          <Helmet>
+            <title>Login</title>
+          </Helmet>
+          <Login toggleLogin={toggleLogin} />
+        </div>
       ) : (
-        <Register toggleLogin={toggleLogin} />
+        <div>
+          <Helmet>
+            <title>Register</title>
+          </Helmet>
+          <Register toggleLogin={toggleLogin} />
+        </div>
       )}
     </>
   );
