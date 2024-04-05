@@ -4,6 +4,7 @@ import PropTypes from "prop-types"
 import Footer from "../components/Footer"
 import cart_icon from '../assets/images/cart-shopping-solid.svg'
 import { useState, useEffect } from "react"
+import { Helmet } from "react-helmet"
 
 const Shop = ({ itemsInfo, getCartItems, cartItems, deleteCartItem, addToCart }) => {
 
@@ -38,6 +39,10 @@ const Shop = ({ itemsInfo, getCartItems, cartItems, deleteCartItem, addToCart })
 
   return (
     <>
+      <Helmet>
+        <title>{category}</title>
+      </Helmet>
+
       <NavBar
         cartItems={cartItems}
         itemsInfo={itemsInfo}

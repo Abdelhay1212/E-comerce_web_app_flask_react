@@ -6,6 +6,7 @@ import LatestProducts from "../components/LatestProducts"
 import Footer from "../components/Footer"
 import Testimonials from "../components/Testimonials"
 import PropTypes from "prop-types"
+import { Helmet } from 'react-helmet'
 
 const Home = ({ addToCart, itemsInfo, getCartItems, cartItems, deleteCartItem }) => {
 
@@ -19,6 +20,9 @@ const Home = ({ addToCart, itemsInfo, getCartItems, cartItems, deleteCartItem })
 
   return (
     <>
+      <Helmet>
+        <title>Home</title>
+      </Helmet>
       <NavBar
         itemsInfo={itemsInfo}
         getCartItems={getCartItems}
