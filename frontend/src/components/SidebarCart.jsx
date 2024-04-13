@@ -1,16 +1,11 @@
-import PropTypes from 'prop-types'
 import closeIcon from '../assets/images/xmark-solid.svg'
-import { NavLink } from 'react-router-dom'
+import { useCart } from '../context/CartContext'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 
-const SidebarCart = ({ isOpen, onClose, cartItems, deleteCartItem }) => {
-
-  SidebarCart.propTypes = {
-    isOpen: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
-    cartItems: PropTypes.array.isRequired,
-    deleteCartItem: PropTypes.func.isRequired
-  }
+const SidebarCart = ({ isOpen, onClose }) => {
+  const { cartItems, deleteCartItem } = useCart()
 
   useEffect(() => {
     if (isOpen) {
@@ -51,7 +46,7 @@ const SidebarCart = ({ isOpen, onClose, cartItems, deleteCartItem }) => {
               <ul className="space-y-4">
                 {cartItems.map(item => (
                   <li key={item.id} className='flex justify-between items-center'>
-                    <NavLink to={`/product/${item.product.id}`}>
+                    <Link to={`/product/${item.product.id}`}>
                       <div className="flex items-center gap-4">
                         <img
                           src={`http://localhost:5000/images/${item.product.image}`}
@@ -72,10 +67,15 @@ const SidebarCart = ({ isOpen, onClose, cartItems, deleteCartItem }) => {
                           </dl>
                         </div>
                       </div>
-                    </NavLink>
+                    </Link>
 
-                    <div onClick={() => deleteCartItem(item.id)}>
-                      <span className="text-sm text-center font-small text-gray-400 hover:text-gray-600 mr-4 px-1 cursor-pointer border rounded-full">&#10005;</span>
+                    <div>
+                      <span
+                        onClick={() => deleteCartItem(item.id)}
+                        className="text-sm text-center font-small text-gray-400 hover:text-gray-600 mr-4 px-1 cursor-pointer border rounded-full"
+                      >
+                        &#10005;
+                      </span>
                     </div>
                   </li>
                 ))}
@@ -86,12 +86,12 @@ const SidebarCart = ({ isOpen, onClose, cartItems, deleteCartItem }) => {
           <div className='px-4 py-4 sm:px-6 lg:px-8 flex flex-col gap-2'>
             {cartItems.length > 0 && (
               <>
-                <NavLink
+                <Link
                   to='/cart'
                   className="block rounded border border-gray-600 px-5 py-3 text-sm text-gray-600 hover:text-gray-600 text-center transition hover:ring-1 hover:ring-gray-400"
                 >
                   View my cart
-                </NavLink>
+                </Link>
 
                 <a
                   href="#"
@@ -102,17 +102,22 @@ const SidebarCart = ({ isOpen, onClose, cartItems, deleteCartItem }) => {
               </>
             )}
 
-            <NavLink
+            <Link
               to='/shop/all'
               className="inline-block text-sm text-gray-500 text-center underline underline-offset-4 transition hover:text-gray-600"
             >
               Continue shopping
-            </NavLink>
+            </Link>
           </div>
         </div>
       </div>
     </>
   )
+}
+
+SidebarCart.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired
 }
 
 export default SidebarCart

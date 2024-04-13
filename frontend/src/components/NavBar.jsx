@@ -1,22 +1,16 @@
 import '../assets/styles/NavBar.css'
 import { NavLink } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import logo from '../assets/images/logo-img.png'
 import menu_icon from '../assets/images/bars-solid.svg'
 import close_icon from '../assets/images/xmark-solid.svg'
 import s_logo from '../assets/images/favicon-img.png'
 import cart_icon from '../assets/images/cart-shopping-solid.svg'
-import PropTypes from 'prop-types'
 import SidebarCart from './SidebarCart'
+import { useCart } from '../context/CartContext'
 
-function NavBar({ itemsInfo, getCartItems, cartItems, deleteCartItem }) {
-
-  NavBar.propTypes = {
-    itemsInfo: PropTypes.object.isRequired,
-    getCartItems: PropTypes.func.isRequired,
-    cartItems: PropTypes.array.isRequired,
-    deleteCartItem: PropTypes.func.isRequired
-  }
+function NavBar() {
+  const { cartItems } = useCart()
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const toggleMenu = () => {
@@ -26,6 +20,19 @@ function NavBar({ itemsInfo, getCartItems, cartItems, deleteCartItem }) {
   // Sidebar Cart
   const [isCartOpen, setIsCartOpen] = useState(false)
   const toggleCart = () => setIsCartOpen(!isCartOpen)
+
+  const [countCartItems, setCountCartItems] = useState({ count: 0, amount: 0 })
+
+  useEffect(() => {
+    let count = 0
+    let amount = 0
+    cartItems.forEach(item => {
+      count += item.quantity
+      amount += Number(item.subtotal)
+    })
+    setCountCartItems({ count, amount })
+  }, [cartItems])
+
 
   return (
     <div>
@@ -48,10 +55,10 @@ function NavBar({ itemsInfo, getCartItems, cartItems, deleteCartItem }) {
           <div className="hidden lg:flex lg:gap-x-5 items-center">
             <NavLink to='/about' className="nav-link text-sm font-semibold leading-6 text-gray-900 hover:text-[#607d8b]" activeClassName="active">About Us</NavLink>
             <NavLink to='/account' className="nav-link text-sm font-semibold leading-6 text-gray-900 hover:text-[#607d8b]" activeClassName="active">My Account</NavLink>
-            <a href="#" onClick={() => { toggleCart(); getCartItems() }} className="icon-link flex items-center text-sm font-semibold leading-6 text-gray-900">
-              <span className="cart-price">${itemsInfo.amount !== 0 ? itemsInfo.amount : '0.00'}</span>
+            <a href="#" onClick={toggleCart} className="icon-link flex items-center text-sm font-semibold leading-6 text-gray-900">
+              <span className="cart-price">${countCartItems.amount ? countCartItems.amount : '0.00'}</span>
               <img src={cart_icon} alt="Cart" className="ml-2 w-6" />
-              <span className="item-count">{itemsInfo.count}</span>
+              <span className="item-count">{countCartItems.count}</span>
             </a>
           </div>
           <div className="lg:hidden">
@@ -78,10 +85,10 @@ function NavBar({ itemsInfo, getCartItems, cartItems, deleteCartItem }) {
                     <NavLink to='/shop/table' className="nav-link -mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:text-[#607d8b]" activeClassName="active" onClick={toggleMenu}>Table</NavLink>
                     <NavLink to='/about' className="nav-link -mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:text-[#607d8b]" activeClassName="active" onClick={toggleMenu}>About Us</NavLink>
                     <NavLink to='/account' className="nav-link -mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:text-[#607d8b]" activeClassName="active" onClick={toggleMenu}>My Account</NavLink>
-                    <a href='#' onClick={() => { toggleCart(); getCartItems() }} className="icon-link flex items-center text-sm font-semibold leading-6 text-gray-900">
-                      <span className="cart-price">${itemsInfo.amount !== 0 ? itemsInfo.amount : '0.00'}</span>
+                    <a href='#' onClick={toggleCart} className="icon-link flex items-center text-sm font-semibold leading-6 text-gray-900">
+                      <span className="cart-price">${countCartItems.amount ? countCartItems.amount : '0.00'}</span>
                       <img src={cart_icon} alt="Cart" className="ml-2 w-6" />
-                      <span className="item-count-menu">{itemsInfo.count}</span>
+                      <span className="item-count-menu">{countCartItems.count}</span>
                     </a>
                   </div>
                 </div>
@@ -95,8 +102,6 @@ function NavBar({ itemsInfo, getCartItems, cartItems, deleteCartItem }) {
       <SidebarCart
         isOpen={isCartOpen}
         onClose={toggleCart}
-        cartItems={cartItems}
-        deleteCartItem={deleteCartItem}
       />
     </div>
   )

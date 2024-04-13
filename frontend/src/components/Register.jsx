@@ -1,6 +1,7 @@
 import PropTypes from "prop-types"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useCart } from "../context/CartContext"
 
 
 const Register = ({ toggleLogin }) => {
@@ -9,6 +10,7 @@ const Register = ({ toggleLogin }) => {
     toggleLogin: PropTypes.func.isRequired,
   }
 
+  const { loading, setLoading } = useCart()
   const navigate = useNavigate()
 
   const [firstName, setFirstName] = useState('')
@@ -71,6 +73,7 @@ const Register = ({ toggleLogin }) => {
       const data = await response.json()
       if (response.ok) {
         sessionStorage.setItem("access_token", data.access_token)
+        setLoading(!loading)
         alert(data.message)
         navigate('/')
       } else {

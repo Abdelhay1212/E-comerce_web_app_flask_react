@@ -16,14 +16,14 @@ const Account = () => {
       {showLogin ? (
         <div>
           <Helmet>
-            <title>Login</title>
+            <title>Login - Furniture Store</title>
           </Helmet>
           <Login toggleLogin={toggleLogin} />
         </div>
       ) : (
         <div>
           <Helmet>
-            <title>Register</title>
+            <title>Register - Furniture Store</title>
           </Helmet>
           <Register toggleLogin={toggleLogin} />
         </div>

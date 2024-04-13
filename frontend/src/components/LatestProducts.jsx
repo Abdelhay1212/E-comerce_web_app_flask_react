@@ -1,14 +1,11 @@
 import cart_icon from "../assets/images/cart-shopping-solid.svg"
 import { NavLink } from "react-router-dom"
 import { useEffect, useState } from "react"
-import PropTypes from "prop-types"
+import { useCart } from "../context/CartContext"
 
-const LatestProducts = ({ addToCart }) => {
+const LatestProducts = () => {
 
-  LatestProducts.propTypes = {
-    addToCart: PropTypes.func.isRequired,
-  }
-
+  const { addToCart } = useCart()
   const [products, setProducts] = useState([])
 
   const fetchProducts = async () => {
@@ -38,8 +35,8 @@ const LatestProducts = ({ addToCart }) => {
               <NavLink to={`/product/${product.id}`}>
                 <img className="w-full object-cover hover:cursor-pointer" src={`http://localhost:5000/images/${product.image}`} alt="" />
               </NavLink>
-              <div className="absolute top-0 right-0 m-4 h-9 w-9 hover:cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center bg-gray-200 hover:bg-white rounded-full">
-                <img src={cart_icon} alt="" className="h-4 w-4 object-cover" onClick={() => addToCart(product.id)} />
+              <div onClick={() => addToCart(product.id)} className="absolute top-0 right-0 m-4 h-9 w-9 hover:cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center bg-gray-200 hover:bg-white rounded-full">
+                <img src={cart_icon} alt="" className="h-4 w-4 object-cover" />
               </div>
             </div>
             <div className="px-4 py-2">

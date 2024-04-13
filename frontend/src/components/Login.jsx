@@ -1,6 +1,7 @@
 import { useState } from "react"
 import PropTypes from "prop-types"
 import { useNavigate } from "react-router-dom"
+import { useCart } from "../context/CartContext"
 
 const Login = ({ toggleLogin }) => {
 
@@ -8,6 +9,7 @@ const Login = ({ toggleLogin }) => {
     toggleLogin: PropTypes.func.isRequired,
   }
 
+  const { loading, setLoading } = useCart()
   const [loginIdentifier, setLoginIdentifier] = useState('')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
@@ -46,6 +48,7 @@ const Login = ({ toggleLogin }) => {
       const data = await response.json()
       if (response.ok) {
         sessionStorage.setItem('access_token', data.access_token)
+        setLoading(!loading)
         alert(data.message)
         navigate('/')
       } else {
