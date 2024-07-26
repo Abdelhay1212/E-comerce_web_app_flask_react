@@ -20,7 +20,6 @@ This project is an e-commerce web application that uses Flask as its backend fra
 
 ### External services
 
-- Google auth (Oauth)
 - Paypal payment (payment method)
 
 ## Prerequisites
